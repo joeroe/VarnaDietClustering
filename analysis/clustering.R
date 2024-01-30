@@ -5,6 +5,7 @@ library(ggExtra)
 library(ggforce)
 library(ggplot2)
 library(ggrepel)
+library(khroma)
 library(purrr)
 library(readxl)
 library(stringr)
@@ -25,6 +26,8 @@ varna <- read_xlsx("data/varna_human_isotopes.xlsx",
   drop_na(grave) |>
   mutate(
     site = if_else(str_starts(grave, "G"), "Varna 3", "Varna 1"),
+    sex = if_else(str_detect(sex, coll("?")), "undetermined", sex),
+    sex = factor(sex, levels = c("female", "male", "child", "undetermined")),
     .before = c14_lab_id
   ) |>
   distinct(grave, .keep_all = TRUE) # remove replicates
@@ -94,19 +97,23 @@ varna |>
   varna_cluster
 
 # Plot clusters
-fig_varna_cluster <- ggplot(varna_cluster, aes(d13c, d15n, shape = site, group = cluster)) +
-  geom_point() +
-  geom_mark_hull(aes(fill = cluster, colour = cluster), na.rm = TRUE) +
-  #geom_text_repel(aes(label = grave), colour = "darkgrey") +
+fig_varna_cluster <- ggplot(varna_cluster,
+                            aes(d13c, d15n, shape = sex, group = cluster)) +
+  geom_point(aes(fill = site)) +
+  geom_mark_hull(aes(colour = cluster)) +
+  geom_text_repel(aes(label = grave), size = 2) +
   scale_x_reverse() +
-  scale_colour_brewer(palette = "Set1", guide = guide_none()) +
-  scale_fill_brewer(palette = "Set1", guide = guide_none()) +
-  labs(x = "δ13C", y = "δ15N", shape = NULL) +
+  scale_fill_manual(values = c("black", "white"),
+                    guide = guide_legend(override.aes = list(shape = 21))) +
+  scale_shape_manual(values = c(25, 24, 22, 21),
+                     guide = guide_legend(override.aes = list(fill = "black"))) +
+  scale_colour_bright(guide = guide_none()) +
+  labs(x = "δ13C", y = "δ15N", fill = NULL, shape = NULL) +
   theme_cowplot() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom", legend.direction = "vertical")
 
+fig_varna_cluster
 ggMarginal(fig_varna_cluster, type = "boxplot", size = 10)
-
 
 # HDBSCAN -----------------------------------------------------------------
 varna |>
@@ -128,17 +135,24 @@ varna |>
 # TODO: suppress clusters where eps is less than the measurement error
 # Method after Malzer & Baum 2019 (https://arxiv.org/abs/1911.02282)
 # Depends on: https://github.com/mhahsler/dbscan/issues/56
+# In the mean time, merge manually:
+varna_hcluster$cluster[varna_hcluster$cluster %in% 3:7] <- 3
+varna_hcluster$cluster <- factor(varna_hcluster$cluster) # relevel
 
-fig_varna_hcluster <- ggplot(varna_hcluster,
-                             aes(d13c, d15n, group = cluster)) +
-  geom_point(aes(shape = site)) +
-  geom_mark_hull(aes(fill = cluster, colour = cluster), na.rm = TRUE) +
-  #geom_text_repel(aes(label = grave), colour = "darkgrey") +
+fig_varna_hcluster <- ggplot(varna_hcluster, aes(d13c, d15n)) +
+  geom_point(aes(shape = sex, fill = site)) +
+  geom_mark_hull(aes(colour = cluster),
+                 data = filter(varna_hcluster, !is.na(cluster))) +
+  geom_text_repel(aes(label = grave), size = 2) +
   scale_x_reverse() +
-  scale_colour_brewer(palette = "Set1", guide = guide_none()) +
-  scale_fill_brewer(palette = "Set1", guide = guide_none()) +
-  labs(x = "δ13C", y = "δ15N", shape = NULL) +
+  scale_fill_manual(values = c("black", "white"),
+                    guide = guide_legend(override.aes = list(shape = 21))) +
+  scale_shape_manual(values = c(25, 24, 22, 21),
+                     guide = guide_legend(override.aes = list(fill = "black"))) +
+  scale_colour_bright(guide = guide_none()) +
+  labs(x = "δ13C", y = "δ15N", fill = NULL, shape = NULL) +
   theme_cowplot() +
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom", legend.direction = "vertical")
 
+fig_varna_hcluster
 ggMarginal(fig_varna_hcluster, type = "boxplot", size = 10)
