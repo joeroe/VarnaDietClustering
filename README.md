@@ -27,8 +27,8 @@ ignored. In our case, we selected this threshold to collapse together
 clusters that were only visible at distances under the maximum
 measurement error of the isotope ratios (0.03). Clustering was performed
 with the R package dbscan (Hahsler, Piekenbrock, and Doran 2019); the
-data and R code to reproduce this analysis can be found at
-<!-- TODO: insert Zenodo DOI -->.
+data and R code to reproduce this analysis is deposited with Zenodo at
+<https://doi.org/XXX.XXX.XXX.XXX><!-- TODO: insert proper Zenodo DOI -->.
 
 ## Usage
 
