@@ -1,3 +1,8 @@
+# varna_diet_clustering.R
+# Cluster analysis of stable isotope measurements of burials from Varna, for
+#   Gaydarska et al. (forthcoming)
+# Joe Roe <joeroe@hey.com>
+
 library(cowplot)
 library(dbscan)
 library(dplyr)
@@ -14,9 +19,10 @@ library(tidyr)
 
 # DATA --------------------------------------------------------------------
 
+# From EJA paper, Table 1
 varna <- read_xlsx("data/varna_human_isotopes.xlsx",
                    sheet = 1,
-                   range = "B2:T82",
+                   range = "A2:S82",
                    col_names = c("c14_lab_id", "grave", "c14_age", "c14_error",
                                  "c14_note", "age", "sex", "d13c", "d13c_error",
                                  "d15n", "d15n_error", "ratio",  "fruits1",
@@ -71,78 +77,32 @@ fig_varna_dist_error <- varna |>
 
 ggMarginal(fig_varna_dist_error, type = "boxplot", size = 10)
 
-# DBSCAN ------------------------------------------------------------------
-
-dbscan_min_points <- 3 # Three's a crowd
-
-# Select optimal eps from KNN plot
-kNNdistplot(select(varna, d13c, d15n), minPts = dbscan_min_points)
-dbscan_eps <- 0.3
-
-# Determine clusters
-varna |>
-  nest() |>
-  mutate(
-    cluster_data = map(data, select, d13c, d15n),
-    dbscan = map(cluster_data, dbscan,
-                 eps = dbscan_eps, minPts = dbscan_min_points),
-    cluster = map(dbscan, "cluster")
-  ) |>
-  select(data, cluster) |>
-  unnest(c(data, cluster)) |>
-  mutate(
-    cluster = na_if(cluster, 0),
-    cluster = factor(cluster)
-  ) ->
-  varna_cluster
-
-# Plot clusters
-fig_varna_cluster <- ggplot(varna_cluster,
-                            aes(d13c, d15n, shape = sex, group = cluster)) +
-  geom_point(aes(fill = site)) +
-  geom_mark_hull(aes(colour = cluster)) +
-  geom_text_repel(aes(label = grave), size = 2) +
-  scale_x_reverse() +
-  scale_fill_manual(values = c("black", "white"),
-                    guide = guide_legend(override.aes = list(shape = 21))) +
-  scale_shape_manual(values = c(25, 24, 22, 21),
-                     guide = guide_legend(override.aes = list(fill = "black"))) +
-  scale_colour_bright(guide = guide_none()) +
-  labs(x = "δ13C", y = "δ15N", fill = NULL, shape = NULL) +
-  theme_cowplot() +
-  theme(legend.position = "bottom", legend.direction = "vertical")
-
-fig_varna_cluster
-ggMarginal(fig_varna_cluster, type = "boxplot", size = 10)
 
 # HDBSCAN -----------------------------------------------------------------
-varna |>
-  nest() |>
-  mutate(
-    cluster_data = map(data, select, d13c, d15n),
-    hdbscan = map(cluster_data, hdbscan, minPts = dbscan_min_points),
-    cluster = map(hdbscan, "cluster"),
-    cluster_p = map(hdbscan, "membership_prob")
-  ) |>
-  select(data, cluster, cluster_p) |>
-  unnest(c(data, cluster, cluster_p)) |>
-  mutate(
-    cluster = na_if(cluster, 0),
-    cluster = factor(cluster)
-  ) ->
-  varna_hcluster
 
-# TODO: suppress clusters where eps is less than the measurement error
-# Method after Malzer & Baum 2019 (https://arxiv.org/abs/1911.02282)
-# Depends on: https://github.com/mhahsler/dbscan/issues/56
-# In the mean time, merge manually:
-varna_hcluster$cluster[varna_hcluster$cluster %in% 3:7] <- 3
-varna_hcluster$cluster <- factor(varna_hcluster$cluster) # relevel
+dbscan_min_points <- 3 # Three's a crowd
+varna_hcluster <- hdbscan(select(varna, d13c, d15n), minPts = dbscan_min_points)
 
-fig_varna_hcluster <- ggplot(varna_hcluster, aes(d13c, d15n)) +
+# Malzer & Baum (2019, https://arxiv.org/abs/1911.02282) describe a modification
+# of the HDBSCAN algorithm where clusters under a certain threshold of epsilon
+# are collapsed. They find that this solves the variable density problem, but
+# for our purposes also provides a convenient way to ignore clustering at
+# distances less than the measurement error of the isotope ratios.
+#
+# The method is not yet implemented in dbscan (see
+# https://github.com/mhahsler/dbscan/issues/56) so we'll have to do it manually
+# by inspecting the hierarchy tree.
+plot(varna_hcluster, show_flat = TRUE)
+
+varna$cluster <- varna_hcluster$cluster
+varna$membership_prob <- varna_hcluster$membership_prob
+varna$cluster[varna_hcluster$cluster %in% 3:7] <- 3 # eps < 0.3
+
+# Plot
+fig_varna_hcluster <- ggplot(varna, aes(d13c, d15n)) +
   geom_point(aes(shape = sex, fill = site)) +
-  geom_mark_hull(aes(colour = cluster),
-                 data = filter(varna_hcluster, !is.na(cluster))) +
+  geom_mark_hull(aes(colour = factor(cluster)),
+                 data = filter(varna, cluster != 0)) +
   geom_text_repel(aes(label = grave), size = 2) +
   scale_x_reverse() +
   scale_fill_manual(values = c("black", "white"),
