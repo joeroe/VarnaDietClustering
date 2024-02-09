@@ -1,8 +1,9 @@
 # varna_diet_clustering.R
-# Cluster analysis of stable isotope measurements of burials from Varna, for
-#   Gaydarska et al. (forthcoming)
+# Cluster analysis of dietary stable isotope measurements of burials from Varna,
+#   for Gaydarska et al. (forthcoming)
 # Joe Roe <joeroe@hey.com>
 
+library(concaveman)
 library(cowplot)
 library(dbscan)
 library(dplyr)
@@ -12,6 +13,7 @@ library(ggplot2)
 library(ggrepel)
 library(khroma)
 library(purrr)
+library(readr)
 library(readxl)
 library(stringr)
 library(tidyr)
@@ -38,6 +40,7 @@ varna <- read_xlsx("data/varna_human_isotopes.xlsx",
   ) |>
   distinct(grave, .keep_all = TRUE) # remove replicates
 
+write_csv(varna, "data/varna_human_isotopes.csv")
 
 # PLOT DISTRIBUTION -------------------------------------------------------
 
@@ -49,7 +52,7 @@ fig_varna_dist <- ggplot(varna, aes(d13c, d15n, label = grave)) +
   labs(x = "δ13C", y = "δ15N") +
   theme_cowplot()
 
-ggMarginal(fig_varna_dist, type = "boxplot", size = 10)
+#ggMarginal(fig_varna_dist, type = "boxplot", size = 10)
 
 # Scatter plot with lab error envelopes
 fig_varna_dist_error <- varna |>
@@ -75,7 +78,7 @@ fig_varna_dist_error <- varna |>
   labs(x = "δ13C", y = "δ15N") +
   theme_cowplot()
 
-ggMarginal(fig_varna_dist_error, type = "boxplot", size = 10)
+#ggMarginal(fig_varna_dist_error, type = "boxplot", size = 10)
 
 
 # HDBSCAN -----------------------------------------------------------------
@@ -92,7 +95,7 @@ varna_hcluster <- hdbscan(select(varna, d13c, d15n), minPts = dbscan_min_points)
 # The method is not yet implemented in dbscan (see
 # https://github.com/mhahsler/dbscan/issues/56) so we'll have to do it manually
 # by inspecting the hierarchy tree.
-plot(varna_hcluster, show_flat = TRUE)
+#plot(varna_hcluster, show_flat = TRUE)
 
 varna$cluster <- varna_hcluster$cluster
 varna$membership_prob <- varna_hcluster$membership_prob
@@ -114,5 +117,5 @@ fig_varna_hcluster <- ggplot(varna, aes(d13c, d15n)) +
   theme_cowplot() +
   theme(legend.position = "bottom", legend.direction = "vertical")
 
-fig_varna_hcluster
-ggMarginal(fig_varna_hcluster, type = "boxplot", size = 10)
+#fig_varna_hcluster
+#ggMarginal(fig_varna_hcluster, type = "boxplot", size = 10)

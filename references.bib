@@ -1,0 +1,53 @@
+@inproceedings{CampelloEtAl2013,
+  title = {Density-{{Based Clustering Based}} on {{Hierarchical Density Estimates}}},
+  booktitle = {Advances in {{Knowledge Discovery}} and {{Data Mining}}},
+  author = {Campello, Ricardo J. G. B. and Moulavi, Davoud and Sander, Joerg},
+  editor = {Pei, Jian and Tseng, Vincent S. and Cao, Longbing and Motoda, Hiroshi and Xu, Guandong},
+  date = {2013},
+  series = {Lecture {{Notes}} in {{Computer Science}}},
+  pages = {160--172},
+  publisher = {{Springer}},
+  location = {{Berlin, Heidelberg}},
+  doi = {10.1007/978-3-642-37456-2_14},
+  abstract = {We propose a theoretically and practically improved density-based, hierarchical clustering method, providing a clustering hierarchy from which a simplified tree of significant clusters can be constructed. For obtaining a ``flat'' partition consisting of only the most significant clusters (possibly corresponding to different density thresholds), we propose a novel cluster stability measure, formalize the problem of maximizing the overall stability of selected clusters, and formulate an algorithm that computes an optimal solution to this problem. We demonstrate that our approach outperforms the current, state-of-the-art, density-based clustering methods on a wide variety of real world data.},
+  isbn = {978-3-642-37456-2},
+  langid = {english}
+}
+
+@article{CampelloEtAl2015,
+  title = {Hierarchical {{Density Estimates}} for {{Data Clustering}}, {{Visualization}}, and {{Outlier Detection}}},
+  author = {Campello, Ricardo J. G. B. and Moulavi, Davoud and Zimek, Arthur and Sander, J\"org},
+  date = {2015-07-22},
+  journaltitle = {ACM Transactions on Knowledge Discovery from Data},
+  shortjournal = {ACM Trans. Knowl. Discov. Data},
+  volume = {10},
+  number = {1},
+  pages = {5:1--5:51},
+  issn = {1556-4681},
+  doi = {10.1145/2733381},
+  url = {https://dl.acm.org/doi/10.1145/2733381},
+  abstract = {An integrated framework for density-based cluster analysis, outlier detection, and data visualization is introduced in this article. The main module consists of an algorithm to compute hierarchical estimates of the level sets of a density, following Hartigan's classic model of density-contour clusters and trees. Such an algorithm generalizes and improves existing density-based clustering techniques with respect to different aspects. It provides as a result a complete clustering hierarchy composed of all possible density-based clusters following the nonparametric model adopted, for an infinite range of density thresholds. The resulting hierarchy can be easily processed so as to provide multiple ways for data visualization and exploration. It can also be further postprocessed so that: (i) a normalized score of ``outlierness'' can be assigned to each data object, which unifies both the global and local perspectives of outliers into a single definition; and (ii) a ``flat'' (i.e., nonhierarchical) clustering solution composed of clusters extracted from local cuts through the cluster tree (possibly corresponding to different density thresholds) can be obtained, either in an unsupervised or in a semisupervised way. In the unsupervised scenario, the algorithm corresponding to this postprocessing module provides a global, optimal solution to the formal problem of maximizing the overall stability of the extracted clusters. If partially labeled objects or instance-level constraints are provided by the user, the algorithm can solve the problem by considering both constraints violations/satisfactions and cluster stability criteria. An asymptotic complexity analysis, both in terms of running time and memory space, is described. Experiments are reported that involve a variety of synthetic and real datasets, including comparisons with state-of-the-art, density-based clustering and (global and local) outlier detection methods.}
+}
+
+@inproceedings{MalzerBaum2020,
+  title = {A {{Hybrid Approach To Hierarchical Density-based Cluster Selection}}},
+  booktitle = {2020 {{IEEE International Conference}} on {{Multisensor Fusion}} and {{Integration}} for {{Intelligent Systems}} ({{MFI}})},
+  author = {Malzer, Claudia and Baum, Marcus},
+  date = {2020-09},
+  pages = {223--228},
+  doi = {10.1109/MFI49285.2020.9235263},
+  url = {https://ieeexplore.ieee.org/document/9235263},
+  abstract = {HDBSCAN is a density-based clustering algorithm that constructs a cluster hierarchy tree and then uses a specific stability measure to extract flat clusters from the tree. We show how the application of an additional threshold value can result in a combination of DBSCAN* and HDBSCAN clusters, and demonstrate potential benefits of this hybrid approach when clustering data of variable densities. In particular, our approach is useful in scenarios where we require a low minimum cluster size but want to avoid an abundance of micro-clusters in high-density regions. The method can directly be applied to HDBSCAN's tree of cluster candidates and does not require any modifications to the hierarchy itself. It can easily be integrated as an addition to existing HDBSCAN implementations.},
+  eventtitle = {2020 {{IEEE International Conference}} on {{Multisensor Fusion}} and {{Integration}} for {{Intelligent Systems}} ({{MFI}})}
+}
+
+@Article{HahslerEtAl2019,
+    title = {{dbscan}: Fast Density-Based Clustering with {R}},
+    author = {Michael Hahsler and Matthew Piekenbrock and Derek Doran},
+    journal = {Journal of Statistical Software},
+    year = {2019},
+    volume = {91},
+    number = {1},
+    pages = {1--30},
+    doi = {10.18637/jss.v091.i01},
+  }

@@ -1,0 +1,45 @@
+---
+title: Varna diet clustering
+bibliography: references.bib
+format: gfm
+---
+
+This is a compendium of data and R code accompanying our paper at:
+
+> Gaydarska et al. (forthcoming) ...
+
+It describes a cluster analysis of dietary stable isotope measurements from burials at Varna, a Chalcolithic cemetery on the Black Sea coast of modern-day Bulgaria.
+
+```{r cluster-results, echo=FALSE, message=FALSE}
+source("varna_diet_clustering.R")
+fig_varna_hcluster
+```
+
+We delineated clusters of burials with similar stable isotope ratios using the HDBSCAN algorithm [@CampelloEtAl2013] with $m_{pts}=3$.
+HDBSCAN (Hierarchical Density-Based Spatial Clustering of Applications with Noise) is an non-parametric clustering and outlier detection algorithm that seeks the 'most stable' clusters in a given dataset.
+In other words, it selects those natural clusters in the data that are least affected by the choice of a particular density or distance threshold.
+HDBSCAN is well-suited to stable isotope data because it performs well with non-linear clusters, is robust to noise, and doesn't rely on a pre-specified number of desired clusters [@CampelloEtAl2015].
+We applied the modified algorithm suggested by @MalzerBaum2020, where clustering below a certain threshold distance is ignored.
+In our case, we selected this threshold to collapse together clusters that were only visible at distances under the maximum measurement error of the isotope ratios (0.03).
+Clustering was performed with the R package dbscan [@HahslerEtAl2019]; the data and R code to reproduce this analysis can be found at <!-- TODO: insert Zenodo DOI -->.
+
+## Usage
+
+`varna_diet_clustering.R` contains the R code that performs the cluster analysis.
+It uses `data/varna_human_isotopes.xlsx`, which is excerpted from the paper (Table 1).
+`data/varna_human_isotopes.csv` contains the extracted and cleaned data used for clustering.
+
+`renv.lock` records the exact dependency versions used to produce our analysis.
+You can restore this environment with [renv](https://rstudio.github.io/renv/articles/renv.html) using `renv::init()`.
+
+## Citation
+
+Please cite the original paper which this compendium accompanies:
+
+> Gaydarska et al. (forthcoming) ...
+
+## License
+
+MIT License
+
+## References
