@@ -103,19 +103,16 @@ varna$cluster[varna_hcluster$cluster %in% 3:7] <- 3 # eps < 0.3
 
 # Plot
 fig_varna_hcluster <- ggplot(varna, aes(d13c, d15n)) +
-  geom_point(aes(shape = sex, fill = site)) +
+  geom_point(aes(fill = site), shape = 21) +
   geom_mark_hull(aes(colour = factor(cluster)),
                  data = filter(varna, cluster != 0)) +
   geom_text_repel(aes(label = grave), size = 2) +
   scale_x_reverse() +
-  scale_fill_manual(values = c("black", "white"),
-                    guide = guide_legend(override.aes = list(shape = 21))) +
-  scale_shape_manual(values = c(25, 24, 22, 21),
-                     guide = guide_legend(override.aes = list(fill = "black"))) +
+  scale_fill_manual(values = c("black", "white")) +
   scale_colour_bright(guide = guide_none()) +
   labs(x = "δ13C", y = "δ15N", fill = NULL, shape = NULL) +
   theme_cowplot() +
-  theme(legend.position = "bottom", legend.direction = "vertical")
+  theme(legend.position = "bottom")
 
-#fig_varna_hcluster
+fig_varna_hcluster
 #ggMarginal(fig_varna_hcluster, type = "boxplot", size = 10)
