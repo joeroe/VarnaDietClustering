@@ -106,7 +106,7 @@ fig_varna_hcluster <- ggplot(varna, aes(d13c, d15n)) +
   geom_point(aes(fill = site), shape = 21) +
   geom_mark_hull(aes(colour = factor(cluster)),
                  data = filter(varna, cluster != 0)) +
-  geom_text_repel(aes(label = grave), size = 2) +
+  geom_text_repel(aes(label = grave), size = 4) +
   scale_x_reverse() +
   scale_fill_manual(values = c("black", "white")) +
   scale_colour_bright(guide = guide_none()) +
@@ -114,5 +114,12 @@ fig_varna_hcluster <- ggplot(varna, aes(d13c, d15n)) +
   theme_cowplot() +
   theme(legend.position = "bottom")
 
-fig_varna_hcluster
+#fig_varna_hcluster
 #ggMarginal(fig_varna_hcluster, type = "boxplot", size = 10)
+#ggsave(
+#  "figures/fig1.eps",
+#  fig_varna_hcluster,
+#  width = 160, height = 100, units = "mm",
+#  scale = 2,
+#  device = cairo_ps
+#)
