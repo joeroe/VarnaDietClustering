@@ -3,9 +3,9 @@
 
 This is a compendium of data and R code accompanying our paper at:
 
-> Gaydarska, Bisserka, Nancy Beavan, Joe Roe, and Vladimir Slavchev.
-> Dietary variability in the Varna Chalcolithic cemeteries. Manuscript
-> submitted to the *European Journal of Archaeology*.
+> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. Dietary
+> variability in the Varna Chalcolithic cemeteries. Manuscript submitted
+> to the *European Journal of Archaeology*.
 
 It describes a cluster analysis of dietary stable isotope measurements
 from burials at Varna, a Chalcolithic cemetery on the Black Sea coast of
@@ -48,9 +48,9 @@ analysis. You can restore this environment with
 
 Please cite the original paper which this compendium accompanies:
 
-> Gaydarska, Bisserka, Nancy Beavan, Joe Roe, and Vladimir Slavchev.
-> Dietary variability in the Varna Chalcolithic cemeteries. Manuscript
-> submitted to the *European Journal of Archaeology*.
+> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. Dietary
+> variability in the Varna Chalcolithic cemeteries. Manuscript submitted
+> to the *European Journal of Archaeology*.
 
 ## License
 
