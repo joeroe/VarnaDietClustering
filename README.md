@@ -1,4 +1,4 @@
-# Varna diet clustering
+# Dietary variability in the Varna Chalcolithic cemeteries – research compendium
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11203468.svg)](https://doi.org/10.5281/zenodo.11203468)
 
