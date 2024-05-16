@@ -47,9 +47,9 @@ analysis. You can restore this environment with
 
 Please cite the original paper which this compendium accompanies:
 
-> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. Dietary
-> variability in the Varna Chalcolithic cemeteries. Manuscript submitted
-> to the *European Journal of Archaeology*.
+> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. in press. Dietary
+> variability in the Varna Chalcolithic cemeteries. *European Journal of
+> Archaeology*.
 
 ## License
 
