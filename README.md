@@ -1,5 +1,7 @@
 # Varna diet clustering
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11203468.svg)](https://doi.org/10.5281/zenodo.11203468)
+
 This is a compendium of data and R code accompanying our paper at:
 
 > Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. in press. Dietary
@@ -29,7 +31,8 @@ clusters that were only visible at distances under the maximum
 measurement error of the isotope ratios (0.03). Clustering was performed
 with the R package dbscan (Hahsler, Piekenbrock, and Doran 2019); the
 data and R code to reproduce this analysis is deposited with Zenodo at
-<https://doi.org/XXX.XXX.XXX.XXX><!-- TODO: insert proper Zenodo DOI -->.
+<https://zenodo.org/doi/10.5281/zenodo.11203467>
+(<https://doi.org/10.5281/zenodo.11203468>).
 
 ## Usage
 
