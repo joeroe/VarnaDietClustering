@@ -1,12 +1,14 @@
-# Dietary variability in the Varna Chalcolithic cemeteries – research compendium
+# Dietary variability in the Varna Chalcolithic cemeteries
+
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11203468.svg)](https://doi.org/10.5281/zenodo.11203468)
 
-This is a compendium of data and R code accompanying our paper at:
+This is a compendium of data and R code accompanying [our
+paper](https://doi.org/10.1017/eaa.2024.33):
 
-> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. in press. Dietary
-> variability in the Varna Chalcolithic cemeteries. *European Journal
-> of Archaeology*.
+> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. 2024. Dietary
+> Variability in the Varna Chalcolithic Cemeteries. *European Journal of
+> Archaeology*. <https://doi.org/10.1017/eaa.2024.33>
 
 It describes a cluster analysis of dietary stable isotope measurements
 from burials at Varna, a Chalcolithic cemetery on the Black Sea coast of
@@ -31,8 +33,7 @@ clusters that were only visible at distances under the maximum
 measurement error of the isotope ratios (0.03). Clustering was performed
 with the R package dbscan (Hahsler, Piekenbrock, and Doran 2019); the
 data and R code to reproduce this analysis is deposited with Zenodo at
-<https://zenodo.org/doi/10.5281/zenodo.11203467>
-(<https://doi.org/10.5281/zenodo.11203468>).
+<https://doi.org/10.5281/zenodo.11203468>.
 
 ## Usage
 
@@ -50,13 +51,14 @@ analysis. You can restore this environment with
 
 Please cite the original paper which this compendium accompanies:
 
-> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. in press. Dietary
-> variability in the Varna Chalcolithic cemeteries. *European Journal of
-> Archaeology*.
+> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. 2024. Dietary
+> Variability in the Varna Chalcolithic Cemeteries. *European Journal of
+> Archaeology*. <https://doi.org/10.1017/eaa.2024.33>
 
 ## License
 
-MIT License
+Code: MIT License  
+Paper: CC BY-SA
 
 ## References
 

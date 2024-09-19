@@ -1,12 +1,14 @@
 ---
-title: Varna diet clustering
+title: "Dietary variability in the Varna Chalcolithic cemeteries"
 bibliography: references.bib
 format: gfm
 ---
 
-This is a compendium of data and R code accompanying our paper at:
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11203468.svg)](https://doi.org/10.5281/zenodo.11203468)
 
-> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. Dietary variability in the Varna Chalcolithic cemeteries. Manuscript submitted to the *European Journal of Archaeology*.
+This is a compendium of data and R code accompanying [our paper](https://doi.org/10.1017/eaa.2024.33):
+
+> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. 2024. Dietary Variability in the Varna Chalcolithic Cemeteries. *European Journal of Archaeology*. <https://doi.org/10.1017/eaa.2024.33>
 
 It describes a cluster analysis of dietary stable isotope measurements from burials at Varna, a Chalcolithic cemetery on the Black Sea coast of modern-day Bulgaria.
 
@@ -21,7 +23,7 @@ In other words, it selects those natural clusters in the data that are least aff
 HDBSCAN is well-suited to stable isotope data because it performs well with non-linear clusters, is robust to noise, and doesn't rely on a pre-specified number of desired clusters [@CampelloEtAl2015].
 We applied the modified algorithm suggested by @MalzerBaum2020, where clustering below a certain threshold distance is ignored.
 In our case, we selected this threshold to collapse together clusters that were only visible at distances under the maximum measurement error of the isotope ratios (0.03).
-Clustering was performed with the R package dbscan [@HahslerEtAl2019]; the data and R code to reproduce this analysis is deposited with Zenodo at <https://doi.org/XXX.XXX.XXX.XXX><!-- TODO: insert proper Zenodo DOI -->.
+Clustering was performed with the R package dbscan [@HahslerEtAl2019]; the data and R code to reproduce this analysis is deposited with Zenodo at <https://doi.org/10.5281/zenodo.11203468>.
 
 ## Usage
 
@@ -36,10 +38,11 @@ You can restore this environment with [renv](https://rstudio.github.io/renv/arti
 
 Please cite the original paper which this compendium accompanies:
 
-> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. Dietary variability in the Varna Chalcolithic cemeteries. Manuscript submitted to the *European Journal of Archaeology*.
+> Gaydarska, Bisserka, Joe Roe, and Vladimir Slavchev. 2024. Dietary Variability in the Varna Chalcolithic Cemeteries. *European Journal of Archaeology*. <https://doi.org/10.1017/eaa.2024.33>
 
 ## License
 
-MIT License
+Code: MIT License  
+Paper: CC BY-SA
 
 ## References
